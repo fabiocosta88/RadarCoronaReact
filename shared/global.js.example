@@ -1,0 +1,31 @@
+export const endpointsCoronaLmao = {
+    host: 'https://corona.lmao.ninja',
+    routes: {
+        globalTotals: '/v2/all',
+        brazilTotals: '/v2/countries/brazil',
+        countries: '/v2/countries',
+        country: '/v2/countries/',
+    },
+};
+
+export const endpointsStates = {
+    host: 'https://covid19-brazil-api.now.sh',
+    routes: {
+        states: '/api/report/v1',
+        state: '/api/report/v1/brazil/uf/',
+    },
+};
+
+export const endpointsNews = {
+    host: 'http://newsapi.org',
+    routes: {
+        topCoronaNewsBr: '/v2/everything',
+    },
+};
+
+export const endpointsCoronaVale = {
+    host: 'https://fabiocosta88.github.io',
+    routes: {
+        cities: '/CovidValeAPI/cities/',
+    },
+};
