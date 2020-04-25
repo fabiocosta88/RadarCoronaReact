@@ -1,13 +1,24 @@
 import axios from 'axios';
-import { endpointsStates } from '../../shared/global';
+import { endpointsCoronaVale } from '../../shared/global';
 
-export default async function getStateData(name) {
+export default async function getStateData(s) {
+    const state = s;
+    const format = 'json';
+    const is_last = 'True';
+    const place_type = 'state'
     try {
         const {
             host,
-            routes: { state },
-        } = endpointsStates;
-        const response = await axios.get(`${host}${state}${name}`);
+            routes: { cities },
+        } = endpointsCoronaVale;
+        const response = await axios.get(`${host}${cities}`, {
+            params: {
+                format,
+                is_last,
+                place_type,
+                state
+            },
+        });
         return response.data;
     } catch (error) {
         const msg = error.response ? error.response.data.userMessage : '';

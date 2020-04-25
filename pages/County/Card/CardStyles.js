@@ -68,7 +68,7 @@ export const BigCasos = styled.Text`
 export const BigCasosNumber = styled.Text`
     color: ${({ color }) => handleColorType(color)};
     font-weight: bold;
-    font-size: 28;
+    font-size: 24;
 `;
 
 export const BigDataContainer = styled.View`

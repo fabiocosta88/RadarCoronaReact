@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, RefreshControl } from 'react-native';
 import NumberFormat from 'react-number-format';
 import moment from 'moment';
 import tz from 'moment-timezone';
@@ -9,12 +9,9 @@ import getBrazilTotals from '../../utils/services/BrazilService';
 import getGlobalTotals from '../../utils/services/GlobalService';
 import getCountries from '../../utils/services/CountriesService';
 import getCountryData from '../../utils/services/CountryService';
-import getStateData from '../../utils/services/StateService';
-import getStates from '../../utils/services/StatesService';
 
 // Helpers
 import { formatCountriesResponse } from '../../utils/helpers/CountriesHelper';
-import { formatStatesResponse } from '../../utils/helpers/StatesHelper';
 
 // Components
 import { Dropdown } from 'react-native-material-dropdown';
@@ -33,6 +30,7 @@ import {
     GlobalTitle,
 } from './HomeStyles';
 import Card from './Card/Card';
+import BigCard from './Card/BigCard'
 
 // Colors
 import { colors } from '../../styles/colors';
@@ -43,7 +41,6 @@ export default function Home() {
     const [opacityG, setOpacityG] = useState('0.3');
     const [opacityBr, setOpacityBr] = useState('1');
     const [count, setCount] = useState([]);
-    const [state, setState] = useState([]);
     const [dropDisplay, setDropDisplay] = useState('none');
     const [title, setTitle] = useState('Dados gerais');
     const [showDropBrazil, setShowDropBrazil] = useState(true);
@@ -52,17 +49,24 @@ export default function Home() {
     const [dropValueBrazil, setDropValueBrazil] = useState('');
     const [labelTopBrazil, setLabelTopBrazil] = useState('-25%');
     const [labelTopGlobal, setLabelTopGlobal] = useState('-25%');
-    const [ showTests, setShowTests] = useState(true);
-    const [shinning, setShinning] = useState(true);
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    function wait(timeout) {
+        return new Promise(resolve => {
+          setTimeout(resolve, timeout);
+        });
+      }      
+
+      const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(2000).then(() => setRefreshing(false));
+      }, [refreshing]);
 
         useEffect(() => {
         async function fetchData() {
             const response = await getBrazilTotals();
             const responseCoun = await getCountries();
-            const responseStates = await getStates();
             setData(response);
-            setShinning(false);
-            setState(formatStatesResponse(responseStates));
             setCount(formatCountriesResponse(responseCoun));
         }
         fetchData();
@@ -84,11 +88,6 @@ export default function Home() {
         setData(response);
     }
 
-    async function fetchStateData(name) {
-        const response = await getStateData(name);
-        setData(response);
-    }
-
     async function fetchData() {
         const response = await getBrazilTotals();
         setData(response);
@@ -104,7 +103,6 @@ export default function Home() {
         setShowDropGlobal(true);
         setLabelTopBrazil('-25%');
         setLabelTopGlobal('-25%');
-        setShowTests(true);
         setDropValueGlobal('');
     };
 
@@ -119,41 +117,14 @@ export default function Home() {
         setLabelTopGlobal('-25%');
         setLabelTopBrazil('-25%');
         setDropValueBrazil('');
-        setShowTests(true);
     };
-
-    const statesList = new Map();
-    statesList.set("São Paulo", "sp");
-    statesList.set("Rio de Janeiro", "rj");
-    statesList.set("Ceará", "ce");
-    statesList.set("Pernambuco", "pe");
-    statesList.set("Amazonas", "am");
-    statesList.set("Bahia", "ba");
-    statesList.set("Maranhão", "ma");
-    statesList.set("Minas Gerais", "mg");
-    statesList.set("Espírito Santo", "es");
-    statesList.set("Paraná", "pr");
-    statesList.set("Santa Catarina", "sc");
-    statesList.set("Rio Grande do Sul", "rs");
-    statesList.set("Distrito Federal", "df");
-    statesList.set("Pará", "pa");
-    statesList.set("Rio Grande do Norte", "rn");
-    statesList.set("Amapá", "ap");
-    statesList.set("Goiás", "go");
-    statesList.set("Paraíba", "pb");
-    statesList.set("Roraima", "rr");
-    statesList.set("Mato Grosso", "mt");
-    statesList.set("Mato Grosso do Sul", "ms");
-    statesList.set("Acre", "ac");
-    statesList.set("Alagoas", "al");
-    statesList.set("Piauí", "pi");
-    statesList.set("Rondônia", "ro");
-    statesList.set("Sergipe", "se");
-    statesList.set("Tocantis", "to");
 
     return (
         <>
-            <ContainerView>
+            <ContainerView
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }>
                 <ViewContainer>
                     <TitleContainer>
                         <TitlesContainer>
@@ -207,56 +178,9 @@ export default function Home() {
                                 }}
                             />
                     )}
-
-                        {showDropBrazil && (
-                            <Dropdown
-                                label='Selecione um estado:'
-                                fontSize={normalizeFontSize(16)}
-                                itemCount={8}
-                                labelFontSize={normalizeFontSize(16)}
-                                data={state}
-                                value={dropValueBrazil}
-                                useNativeDriver={true}
-                                baseColor='#000'
-                                pickerStyle={{
-                                    width: '90%',
-                                    left: '5%',
-                                }}
-                                labelTextStyle={{
-                                    top: '10%',
-                                    fontWeight: 'bold',
-                                }}
-                                inputContainerStyle={{
-                                    width: '80%',
-                                    left: '10%',
-                                    top: labelTopBrazil,
-                                }}
-                                containerStyle={{
-                                    width: '90%',
-                                    height: '8%',
-                                    alignContent: 'center',
-                                    top: '-1%',
-                                    backgroundColor: '#fff',
-                                    borderRadius: 25,
-                                    marginTop: 15,
-                                }}
-                                onChangeText={(value) => {
-                                    setDropValueBrazil(value);
-                                    setLabelTopBrazil('-15%');
-                                    setTitle(value);
-                                    if (value == 'Geral'){
-                                        fetchData();
-                                        setShowTests(true);
-                                    }else{
-                                        fetchStateData(statesList.get(value));
-                                        setShowTests(false);
-                                    }
-                                }}
-                            />
-                    )}
                     <CardContainer>
-                        <Card
-                            title='Casos confirmados'
+                        <BigCard
+                            title='Casos'
                             info={
                                 <NumberFormat
                                     value={data.cases}
@@ -265,9 +189,17 @@ export default function Home() {
                                     renderText={(value) => <Text>{value}</Text>}
                                 />
                             }
-                            color={colors.yellow}
+                            infoplus={
+                                <NumberFormat
+                                value={data.todayCases}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                renderText={(value) => <Text>+{value} hoje</Text>}
+                            />
+                            }
+                            color={colors.primary}
                         />
-                        <Card
+                        <BigCard
                             title='Óbitos'
                             info={
                                 <NumberFormat
@@ -277,6 +209,14 @@ export default function Home() {
                                     renderText={(value) => <Text>{value}</Text>}
                                 />
                             }
+                            infoplus={
+                                <NumberFormat
+                                value={data.todayDeaths}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                renderText={(value) => <Text>+{value} hoje</Text>}
+                            />
+                            }
                             color={colors.redPink}
                         />
                         <Card
@@ -284,9 +224,8 @@ export default function Home() {
                             info={porcentage}
                             color={colors.purple}
                         />
-                        {showTests && (
-                            <Card
-                            title='Testes realizados'
+                            <BigCard
+                            title='Testes'
                             info={
                                 <NumberFormat
                                     value={data.tests}
@@ -295,10 +234,16 @@ export default function Home() {
                                     renderText={(value) => <Text>{value}</Text>}
                                 />
                             }
+                            infoplus={
+                                <NumberFormat
+                                    value={data.testsPerOneMillion}
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    renderText={(value) => <Text>{value}/mi</Text>}
+                                />
+                            }
                             color={colors.green}
                         />
-                    )}
-
                     </CardContainer>
                 </ViewContainer>
             </ContainerView>

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
-import { Label, Casos, CasosNumber, DataContainer, Color } from './CardStyles';
 
-export default function Card({ title, info, color }) {
+import { Label, Casos, CasosNumber, NewNumber, DataContainer, Color, LabelRow } from './BigCardStyles';
+
+export default function Card({ title, info, infoplus, color }) {
     const [isShinning, setIsShinning] = useState(false);
     setTimeout(() => {setIsShinning(true)}, 5000)
     return (
@@ -11,11 +11,14 @@ export default function Card({ title, info, color }) {
             <Color color={color} />
             <DataContainer>
             <ShimmerPlaceHolder
-                style={{height: '55%', borderRadius: 15, width: '70%'}}
+                style={{height: '50%', borderRadius: 15, left: '-5%'}}
                 autoRun={true}
                 visible={isShinning}
             >
-                <CasosNumber color={color}>{info}</CasosNumber>
+                <LabelRow>
+                    <CasosNumber color={color}>{info}</CasosNumber>
+                    <NewNumber color={color}>{infoplus}</NewNumber>
+                </LabelRow>
             </ShimmerPlaceHolder>
                 <Casos>{title}</Casos>
             </DataContainer>

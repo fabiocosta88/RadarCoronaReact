@@ -40,8 +40,8 @@ export const MediumTitle = styled.Text`
 export const Message = styled.Text`
     color: ${colors.black};
     text-align: center;
-    top: -2%;
-    font-size: ${normalizeFontSize(14)};
+    align-self: baseline;
+    font-size: ${normalizeFontSize(16)};
 `;
 
 export const CityTitle = styled.Text`

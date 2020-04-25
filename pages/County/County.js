@@ -6,6 +6,7 @@ import { Text, TouchableOpacity } from 'react-native';
 import getValeTotals from '../../utils/services/ValeService';
 import getCitysVale from '../../utils/services/CitysVale';
 import getStates from '../../utils/services/StatesService';
+import getStateData from '../../utils/services/StateService';
 
 // Helpers
 import { formatStatesResponse } from '../../utils/helpers/OtherStatesHelper';
@@ -87,13 +88,42 @@ UFList.set("Rondônia", 11);
 UFList.set("Sergipe", 28);
 UFList.set("Tocantis", 17);
 
+const statesList = new Map();
+statesList.set("São Paulo", "SP");
+statesList.set("Rio de Janeiro", "RJ");
+statesList.set("Ceará", "CE");
+statesList.set("Pernambuco", "PE");
+statesList.set("Amazonas", "AM");
+statesList.set("Bahia", "BA");
+statesList.set("Maranhão", "MA");
+statesList.set("Minas Gerais", "MG");
+statesList.set("Espírito Santo", "ES");
+statesList.set("Paraná", "PR");
+statesList.set("Santa Catarina", "SC");
+statesList.set("Rio Grande do Sul", "RS");
+statesList.set("Distrito Federal", "DF");
+statesList.set("Pará", "PA");
+statesList.set("Rio Grande do Norte", "RN");
+statesList.set("Amapá", "AP");
+statesList.set("Goiás", "GO");
+statesList.set("Paraíba", "PB");
+statesList.set("Roraima", "RR");
+statesList.set("Mato Grosso", "MT");
+statesList.set("Mato Grosso do Sul", "MS");
+statesList.set("Acre", "AC");
+statesList.set("Alagoas", "AL");
+statesList.set("Piauí", "PI");
+statesList.set("Rondônia", "RO");
+statesList.set("Sergipe", "SE");
+statesList.set("Tocantis", "TO");
+
 export default function County() {    
     const [data, setData] = useState([]);
     const [cities, setCities] = useState([]);
     const [selectedCounty, setselectedCounty] = useState('Nenhum');
     const [showThings, setshowThings] = useState(true);
     const [state, setState] = useState([]);
-    const [countyDisable, setCountyDisable] = useState(true);
+    const [title, setTitle] = useState("");
 
     useEffect(() => {
         async function fetchData() {
@@ -116,8 +146,13 @@ export default function County() {
     function checkData(data){
         if (data!=null){
             fetchValues(data.name);
-            setshowThings(false);
+            setTitle(data.name);
         }
+    }
+
+    async function fetchStateData(name) {
+        const response = await getStateData(statesList.get(name));
+        setData(formatCasesHelper(response, name));
     }
     
 
@@ -140,8 +175,10 @@ export default function County() {
                             top: '-0.5%',
                         }}
                         onChangeText={(value) => {
+                            fetchStateData(value);
                             fetchCities(value);
-                            setCountyDisable(false);
+                            setTitle(value);
+                            setshowThings(false);
                         }}
                     />
                         <InputAutoSuggest
@@ -164,19 +201,29 @@ export default function County() {
 
                     {!showThings && (
                         <ViewCounty showsVerticalScrollIndicator={false}>
-                            <CityTitle>{data.city}</CityTitle>
+                            <CityTitle>{title}</CityTitle>
                             <CityUpdate>
                                 Atualizado em: {moment(data.date).format('DD/MM/YYYY')}
                             </CityUpdate>
                             <ViewCustom>
                                 <Card
                                     title='Casos'
-                                    info={data.cases}
-                                    color={colors.yellow}
+                                    info={<NumberFormat
+                                        value={data.cases}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        renderText={(value) => <Text>{value}</Text>}
+                                    />}
+                                    color={colors.primary}
                                 />
                                 <Card
                                     title='Óbitos'
-                                    info={data.deaths}
+                                    info={<NumberFormat
+                                        value={data.deaths}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        renderText={(value) => <Text>{value}</Text>}
+                                    />}
                                     color={colors.redPink}
                                 />
                                 <Card
@@ -187,7 +234,7 @@ export default function County() {
                             </ViewCustom>
                             <ViewCustom>
                                 <CardBig
-                                        title='População Total'
+                                        title='População'
                                         info={<NumberFormat
                                             value={data.habitants}
                                             displayType={'text'}
@@ -197,7 +244,7 @@ export default function County() {
                                         color={colors.green}
                                     />
                                 <CardBig
-                                    title='Contaminados'
+                                    title='Infectados'
                                     info={getPorcentageInfected(data.habitants, data.cases)}
                                     color={colors.redPink}
                                 />
