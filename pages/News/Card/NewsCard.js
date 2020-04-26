@@ -26,7 +26,6 @@ function defineAuthor(url){
 }
 
 export default function NewsCard({ title, image, description, author, url, publishedAt }) {
-    console.log(image)
     const date = moment(publishedAt).tz('America/Sao_Paulo').format('DD/MM/YYYY, HH:mm')
     return (
         <>

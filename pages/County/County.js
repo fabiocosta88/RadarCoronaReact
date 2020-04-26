@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, Linking } from 'react-native';
 
 // Services
 import getValeTotals from '../../utils/services/ValeService';
@@ -28,7 +28,9 @@ import {
     NothingText,
     Message,
     CityField,
-    ViewCity
+    ViewCity,
+    ViewZap,
+    ViewCustom1
 } from './CountyStyles';
 import Card from './Card/Card';
 import CardBig from './Card/CardBig'
@@ -36,6 +38,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import { InputAutoSuggest } from 'react-native-autocomplete-search';
 import NumberFormat from 'react-number-format';
 import moment from 'moment';
+import Icon from 'react-native-ionicons'
 
 // Styles
 import { colors } from '../../styles/colors';
@@ -56,6 +59,24 @@ function getPorcentageInfected(habitants, cases){
     }
     const math = (cases / habitants) * 100;
     const porcentage = parseFloat(math.toFixed(3)) + '%';
+    return porcentage;
+}
+
+function getPorcentageMessage(deaths, cases){
+    if (deaths == 0 && cases == 0){
+        return '0%';
+    }
+    const math = (deaths / cases) * 100;
+    const porcentage = parseFloat(math.toFixed(1));
+    return porcentage;
+}
+
+function getPorcentageInfectedMessage(habitants, cases){
+    if (habitants == 0 && cases == 0){
+        return '0%';
+    }
+    const math = (cases / habitants) * 100;
+    const porcentage = parseFloat(math.toFixed(3));
     return porcentage;
 }
 
@@ -133,6 +154,14 @@ export default function County() {
         fetchData();
     }, []);
 
+    function shareOnZap(name){
+          return '[RadarCorona] Números do Covid-19 em ' + name + ' atualmente são: \n' 
+          + '\u2022 ' + data.cases + ' casos;\n'
+          + '\u2022 ' + data.deaths + ' óbitos;\n'
+          + '\u2022 ' + 'A taxa de letalidade é de ' + getPorcentageMessage(data.deaths, data.cases) + escape('%') +  ';\n'
+          + '\u2022 ' + 'A população total é de: ' + data.habitants + ' e ' + getPorcentageInfectedMessage(data.habitants, data.cases) + escape('%') +  ' estão infectados!'
+    }
+
     async function fetchCities(value){
         const responseCity = await getCitysVale(UFList.get(value));
         setCities(formatCitiesResponse(responseCity));
@@ -201,10 +230,28 @@ export default function County() {
 
                     {!showThings && (
                         <ViewCounty showsVerticalScrollIndicator={false}>
-                            <CityTitle>{title}</CityTitle>
-                            <CityUpdate>
-                                Atualizado em: {moment(data.date).format('DD/MM/YYYY')}
-                            </CityUpdate>
+                            <ViewCustom1>
+                                <ViewZap>
+                                <CityTitle>{title}</CityTitle>
+                                <CityUpdate>
+                                    Atualizado em: {moment(data.date).format('DD/MM/YYYY')}
+                                </CityUpdate>
+                                </ViewZap>
+                                <TouchableOpacity
+                            onPress={() => Linking.openURL(`whatsapp://send?text=${shareOnZap(title)}`)}
+                            style={{
+                                alignItems:'center',
+                                right: '15%',
+                                justifyContent:'center',
+                                width:40,
+                                height:40,
+                                backgroundColor:'#25D366',
+                                borderRadius:100,
+                                }}
+                            >
+                                <Icon name="logo-whatsapp"  size={25} color="#fff" />
+                            </TouchableOpacity>
+                            </ViewCustom1>
                             <ViewCustom>
                                 <Card
                                     title='Casos'
