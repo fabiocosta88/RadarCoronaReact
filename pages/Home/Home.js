@@ -67,7 +67,9 @@ export default function Home() {
               + '\u2022 ' + data.deaths + ' óbitos;\n'
               + '\u2022 ' + data.todayDeaths + ' novos óbitos hoje;\n'
               + '\u2022 ' + 'A taxa de letalidade é de ' + porcentageMessage  + escape('%') + ';\n'
-              + '\u2022 ' + data.tests + ' de testes foram feitos.'
+              + '\u2022 ' + data.tests + ' de testes foram feitos; \n'
+              + '\nFonte: Ministério da Saúde. \n'
+              + '\nO Radar Corona é um aplicativo comunitário desenvolvido por Fábio Costa (TT: @srcossta) e distribuído de forma amadora pelo link: https://bit.ly/RadarCorona'
           }
             return '[RadarCorona] Os números do Covid-19 no(a) ' + name + ' atualmente são: \n' 
             + '\u2022 ' + data.cases + ' casos;\n'
@@ -75,7 +77,9 @@ export default function Home() {
             + '\u2022 ' + data.deaths + ' óbitos;\n'
             + '\u2022 ' + data.todayDeaths + ' novos óbitos hoje;\n'
             + '\u2022 ' + 'A taxa de letalidade é de ' + porcentageMessage + escape('%') + ';\n'
-            + '\u2022 ' + data.tests + ' de testes foram feitos.'
+            + '\u2022 ' + data.tests + ' de testes foram feitos;\n'
+            + '\nFonte: Ministério da Saúde. \n'
+            + '\nO Radar Corona é um aplicativo comunitário desenvolvido por Fábio Costa (TT: @srcossta) e distribuído de forma amadora pelo link: https://bit.ly/RadarCorona'
       }
 
       const onRefresh = React.useCallback(() => {
