@@ -12,36 +12,39 @@ import {
     Title,
     Image,
     Date,
-    TitleContainer,
     FooterContainer
 } from './NewsCardStyles'
 
+function defineAuthor(url){
+    if (url.includes('globo')) { 
+        return require('../../../assets/g1.png');
+    }
+    if (url.includes('terra')) {
+        return require('../../../assets/terra.png');
+    }
+    return require('../../../assets/news.png');
+}
+
 export default function NewsCard({ title, image, description, author, url, publishedAt }) {
-
+    console.log(image)
     const date = moment(publishedAt).tz('America/Sao_Paulo').format('DD/MM/YYYY, HH:mm')
-
     return (
         <>
             <Card style={{
-                height: 250,
-                flexDirection: 'row',
-                borderTopLeftRadius: 10,
-                borderTopRightRadius: 10,
-                margin: 15,
-                top: '-3%',
+                padding: 10,
+                margin: 10,
+                height: 100,
+                borderRadius: 15,
             }}>
                 <TouchableOpacity
                 activeOpacity={1.0}
                 onPress={() => Linking.openURL(url)}
+                style={{flexDirection: 'row'}}
                 >
                     <Image
-                        source={{
-                            uri: image,
-                        }}
+                        source={defineAuthor(image)}
                     />
-                    <TitleContainer>
-                        <Title numberOfLines={3}>{title}</Title>
-                    </TitleContainer>
+                    <Title numberOfLines={3}>{title}</Title>
                     <FooterContainer>
                         <Date>Publicado em: {date}</Date>
                     </FooterContainer>

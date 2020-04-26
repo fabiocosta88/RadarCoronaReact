@@ -35,7 +35,7 @@ export const CardContainer = styled.View`
 `;
 
 export const Title = styled.Text`
-    font-size: ${normalizeFontSize(32)};
+    font-size: ${normalizeFontSize(42)};
     left: -5%;
     font-weight: bold;
     margin-bottom: 10%;
@@ -44,7 +44,7 @@ export const Title = styled.Text`
 `;
 
 export const GlobalTitle = styled.Text`
-    font-size: ${normalizeFontSize(32)};
+    font-size: ${normalizeFontSize(42)};
     align-self: flex-start;
     font-weight: bold;
     color: ${colors.white};
@@ -77,4 +77,11 @@ export const TitlesContainer = styled.View`
     flex: 1;
     flex-direction: row;
     justify-content: space-between;
+`;
+
+export const Message = styled.Text`
+    color: ${colors.white};
+    text-align: center;
+    font-size: ${normalizeFontSize(14)};
+    top: -2%;
 `;

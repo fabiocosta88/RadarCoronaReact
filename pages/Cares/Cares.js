@@ -53,7 +53,7 @@ export default function Cares() {
     return (
         <>
         <View style={{backgroundColor: colors.primary}}>
-            <BigTitle>Prevenções</BigTitle>
+            <BigTitle>Cuidados e Prevenções</BigTitle>
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{
                 paddingBottom : 200,
                 backgroundColor: colors.primary}}
