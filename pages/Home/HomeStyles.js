@@ -78,3 +78,10 @@ export const TitlesContainer = styled.View`
     flex-direction: row;
     justify-content: space-between;
 `;
+
+export const Message = styled.Text`
+    color: ${colors.white};
+    text-align: center;
+    font-size: ${normalizeFontSize(14)};
+    top: -2%;
+`;

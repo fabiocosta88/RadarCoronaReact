@@ -56,7 +56,7 @@ export default function MyTabs() {
           name="County"
           component={County}
           options={{
-            tabBarLabel: 'Municípios',
+            tabBarLabel: 'Locais',
             tabBarIcon: ({color}) => (
               <Icon name="map" color={color} size={24} />
             ),
@@ -67,7 +67,7 @@ export default function MyTabs() {
           name="Cares"
           component={Cares}
           options={{
-            tabBarLabel: 'Prevenções',
+            tabBarLabel: 'Cuidados',
             tabBarIcon: ({color}) => (
               <Icon name="medkit" color={color} size={24} />
             ),
@@ -89,7 +89,7 @@ export default function MyTabs() {
           name="Config"
           component={Config}
           options={{
-            tabBarLabel: 'Links e Sobre',
+            tabBarLabel: 'Sobre',
             tabBarIcon: ({color}) => (
               <Icon name="information-circle" color={color} size={24} />
             ),

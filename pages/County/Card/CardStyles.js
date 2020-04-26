@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 
 import { colors } from '../../../styles/colors';
+import { normalizeFontSize } from '../../../styles/NormalizeFont'
 
 export const handleColorType = (color) => {
     return color;
@@ -21,13 +22,13 @@ export const Label = styled.View`
 export const Casos = styled.Text`
     color: ${colors.black};
     font-weight: bold;
-    font-size: 16;
+    font-size: ${normalizeFontSize(16)};
 `;
 
 export const CasosNumber = styled.Text`
     color: ${({ color }) => handleColorType(color)};
     font-weight: bold;
-    font-size: 28;
+    font-size: ${normalizeFontSize(28)};
 `;
 
 export const DataContainer = styled.View`
@@ -62,13 +63,13 @@ export const BigLabel = styled.View`
 export const BigCasos = styled.Text`
     color: ${colors.black};
     font-weight: bold;
-    font-size: 16;
+    font-size: ${normalizeFontSize(16)};
 `;
 
 export const BigCasosNumber = styled.Text`
     color: ${({ color }) => handleColorType(color)};
     font-weight: bold;
-    font-size: 24;
+    font-size: ${normalizeFontSize(24)};
 `;
 
 export const BigDataContainer = styled.View`

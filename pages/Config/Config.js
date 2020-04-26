@@ -205,6 +205,7 @@ const data = {
                     <TitleModal>Sobre os Desenvolvedores</TitleModal>
                     <TextModal>Fábio Costa:</TextModal>
                     <TextModal>GitHub: @fabiocosta88</TextModal>
+                    <TextModal>Twitter: @srcossta</TextModal>
                     <TextModal>{'\n'}Hermany Vieira:</TextModal>
                     <TextModal>GitHub: @Hermany13</TextModal>
                     <TextModal>{'\n'}Ashley Nascimento:</TextModal>

@@ -11,7 +11,7 @@ export default function Card({ title, info, color }) {
             <Color color={color} />
             <DataContainer>
             <ShimmerPlaceHolder
-                style={{height: '55%', borderRadius: 15, width: '70%'}}
+                style={{height: '50%', borderRadius: 15, width: '70%', top: '5%'}}
                 autoRun={true}
                 visible={isShinning}
             >

@@ -28,6 +28,7 @@ import {
     GlobalContainer,
     TitlesContainer,
     GlobalTitle,
+    Message
 } from './HomeStyles';
 import Card from './Card/Card';
 import BigCard from './Card/BigCard'
@@ -220,7 +221,7 @@ export default function Home() {
                             color={colors.redPink}
                         />
                         <Card
-                            title='Mortalidade'
+                            title='Letalidade'
                             info={porcentage}
                             color={colors.purple}
                         />
@@ -244,6 +245,7 @@ export default function Home() {
                             }
                             color={colors.green}
                         />
+                        <Message>Um novo dia se inicia às 21:00 no horário de Brasília. Motivo: Os dados são extraídos de fontes internacionais.</Message>
                     </CardContainer>
                 </ViewContainer>
             </ContainerView>

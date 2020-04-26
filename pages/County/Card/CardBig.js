@@ -11,7 +11,7 @@ export default function CardBig({ title, info, color }) {
             <BigColor color={color} />
             <BigDataContainer>
             <ShimmerPlaceHolder
-                style={{height: '60%', borderRadius: 15, width: '80%'}}
+                style={{height: '50%', borderRadius: 15, width: '80%', top: '5%'}}
                 autoRun={true}
                 visible={isShinning}
             >

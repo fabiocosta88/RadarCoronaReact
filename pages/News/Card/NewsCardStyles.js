@@ -4,16 +4,6 @@ import styled from 'styled-components/native';
 import { colors } from '../../../styles/colors';
 import { normalizeFontSize } from '../../../styles/NormalizeFont'
 
-export const Container = styled.View`
-    margin: 10;
-    padding: 10;
-    width: 100%;
-`;
-
-export const TitleContainer = styled.View`
-    width: 100%;
-`;
-
 export const FooterContainer = styled.View`
     position: absolute;
     flex: 0.1;
@@ -27,16 +17,8 @@ export const FooterContainer = styled.View`
 `;
 
 export const Image = styled.Image`
-    width: 100%;
-    height: 62%;
-    border-top-left-radius: 10;
-    border-top-right-radius: 10;
-`;
-
-export const Text = styled.Text`
-    font-size: ${normalizeFontSize(15)};
-    text-align: center;
-    top: 0.5%;
+    width: 48;
+    height: 48;
 `;
 
 export const Date = styled.Text`
@@ -48,9 +30,8 @@ export const Date = styled.Text`
 
 export const Title = styled.Text`
     text-align: center;
-    top: 1%;
     font-size: ${normalizeFontSize(18)};
-    font-weight: bold;
+    flex: 1;
     flex-direction: row;
     flex-wrap: wrap;
 `;

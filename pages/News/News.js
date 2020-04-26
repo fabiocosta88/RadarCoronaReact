@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, View, ActivityIndicator } from 'react-native';
-
 // Styled Components
 import {
     Container,
@@ -55,12 +54,13 @@ export default function News() {
                 <Title>Últimas notícias</Title>
                     <FlatList
                     ListEmptyComponent={empty}
+                    removeClippedSubviews={true}
                     data={data}
                     renderItem={({ item }) => (
                         <Container>
                             <NewsCard
                                 title={item.title}
-                                image={item.urlToImage}
+                                image={item.url}
                                 description={item.content}
                                 author={item.author}
                                 url={item.url}

@@ -227,7 +227,7 @@ export default function County() {
                                     color={colors.redPink}
                                 />
                                 <Card
-                                    title='Mortalidade'
+                                    title='Letalidade'
                                     info={getPorcentage(data.deaths, data.cases)}
                                     color={colors.purple}
                                 />
