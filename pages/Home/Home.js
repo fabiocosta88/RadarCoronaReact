@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TouchableOpacity, RefreshControl } from 'react-native';
+import { Text, TouchableOpacity, RefreshControl, Linking } from 'react-native';
 import NumberFormat from 'react-number-format';
 import moment from 'moment';
 import tz from 'moment-timezone';
@@ -32,6 +32,7 @@ import {
 } from './HomeStyles';
 import Card from './Card/Card';
 import BigCard from './Card/BigCard'
+import Icon from 'react-native-ionicons'
 
 // Colors
 import { colors } from '../../styles/colors';
@@ -58,6 +59,25 @@ export default function Home() {
         });
       }      
 
+      function shareOnZap(name){
+          if (name.includes('gerais')){
+              return '[RadarCorona] Os números do Covid-19 no Brasil atualmente são: \n' 
+              + '\u2022 ' + data.cases + ' casos;\n'
+              + '\u2022 ' + data.todayCases + ' novos casos hoje;\n'
+              + '\u2022 ' + data.deaths + ' óbitos;\n'
+              + '\u2022 ' + data.todayDeaths + ' novos óbitos hoje;\n'
+              + '\u2022 ' + 'A taxa de letalidade é de ' + porcentageMessage  + escape('%') + ';\n'
+              + '\u2022 ' + data.tests + ' de testes foram feitos.'
+          }
+            return '[RadarCorona] Os números do Covid-19 no(a) ' + name + ' atualmente são: \n' 
+            + '\u2022 ' + data.cases + ' casos;\n'
+            + '\u2022 ' + data.todayCases + ' novos casos hoje;\n'
+            + '\u2022 ' + data.deaths + ' óbitos;\n'
+            + '\u2022 ' + data.todayDeaths + ' novos óbitos hoje;\n'
+            + '\u2022 ' + 'A taxa de letalidade é de ' + porcentageMessage + escape('%') + ';\n'
+            + '\u2022 ' + data.tests + ' de testes foram feitos.'
+      }
+
       const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         wait(2000).then(() => setRefreshing(false));
@@ -75,6 +95,7 @@ export default function Home() {
 
     const math = (data.deaths / data.cases) * 100;
     const porcentage = parseFloat(math.toFixed(2)) + '%';
+    const porcentageMessage = parseFloat(math.toFixed(2));
     const date = moment(data.Updated)
         .tz('America/Sao_Paulo')
         .format('DD/MM/YYYY, HH:mm');
@@ -136,8 +157,25 @@ export default function Home() {
                                 <GlobalTitle opacity={opacityG}>Global</GlobalTitle>
                             </TouchableOpacity>
                         </TitlesContainer>
-                        <SubTitle>{title}</SubTitle>
-                        <Updated>Atualizado em: {date}</Updated>
+                        <TitlesContainer>
+                            <TitleContainer>
+                            <SubTitle>{title}</SubTitle>
+                            <Updated>Atualizado em: {date}</Updated>
+                            </TitleContainer>
+                            <TouchableOpacity
+                            onPress={() => Linking.openURL(`whatsapp://send?text=${shareOnZap(title)}`)}
+                            style={{
+                                alignItems:'center',
+                                justifyContent:'center',
+                                width:50,
+                                height:50,
+                                backgroundColor:'#25D366',
+                                borderRadius:100,
+                                }}
+                            >
+                                <Icon name="logo-whatsapp"  size={30} color="#fff" />
+                            </TouchableOpacity>
+                        </TitlesContainer>
                     </TitleContainer>
                     {showDropGlobal && (
                             <Dropdown

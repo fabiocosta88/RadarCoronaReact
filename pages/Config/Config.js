@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, FlatList, StyleSheet, View, Linking } from 'react-native';
 import Icon from 'react-native-ionicons'
+import PackageJson from '../../package.json';
 
 // Styled Components
 import {
@@ -38,7 +39,7 @@ const data = {
                         {'\n'}Código: Fábio Costa e Hermany Vieira. {'\n'}Design
                         : Ashley Nascimento e Fábio Costa.
                     </TextModal>
-                    <TextModal>{'\n'}Versão: 1.0</TextModal>
+                    <TextModal>{'\n'}Versão: {PackageJson.version}</TextModal>
                 </View>
             ),
         },

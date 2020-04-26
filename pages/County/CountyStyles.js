@@ -8,13 +8,28 @@ export const ViewCustom = styled.View`
     flex-direction: row;
 `;
 
+export const ViewCustom1 = styled.View`
+    flex: 1;
+    flex-direction: row;
+    justify-content: space-between;
+`;
+
+export const ViewZap = styled.View`
+    flex: 2;
+    display: flex;
+    width: 80%;
+    justify-content: flex-start;
+`;
+
+
+
 export const ViewCity = styled.View`
     flex: 1;
     top: 10%;
 `;
 
 export const ViewCounty = styled.ScrollView`
-    top: 5%
+    top: 5%;
 `;
 
 export const ContainerView = styled.View`
@@ -47,6 +62,7 @@ export const Message = styled.Text`
 export const CityTitle = styled.Text`
     color: ${colors.black};
     top: -1%;
+    left: 5%;
     text-align: center;
     font-size: ${normalizeFontSize(30)};
     font-weight: bold;
@@ -55,6 +71,7 @@ export const CityTitle = styled.Text`
 export const CityUpdate = styled.Text`
     color: ${colors.black};
     padding-bottom: 5%;
+    left: 5%;
     text-align: center;
     font-size: ${normalizeFontSize(14)};
     font-weight: bold;

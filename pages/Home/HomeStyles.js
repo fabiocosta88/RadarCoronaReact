@@ -34,6 +34,10 @@ export const CardContainer = styled.View`
     flex: 8;
 `;
 
+export const RowView = styled.View`
+    flex-direction: row;
+`;
+
 export const Title = styled.Text`
     font-size: ${normalizeFontSize(42)};
     left: -5%;
