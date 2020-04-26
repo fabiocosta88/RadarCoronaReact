@@ -159,7 +159,9 @@ export default function County() {
           + '\u2022 ' + data.cases + ' casos;\n'
           + '\u2022 ' + data.deaths + ' óbitos;\n'
           + '\u2022 ' + 'A taxa de letalidade é de ' + getPorcentageMessage(data.deaths, data.cases) + escape('%') +  ';\n'
-          + '\u2022 ' + 'A população total é de: ' + data.habitants + ' e ' + getPorcentageInfectedMessage(data.habitants, data.cases) + escape('%') +  ' estão infectados!'
+          + '\u2022 ' + 'A população total é de: ' + data.habitants + ' e ' + getPorcentageInfectedMessage(data.habitants, data.cases) + escape('%') +  ' estão infectados!\n'
+          + '\nFonte: Secretaria de Saúde do Estado. \n'
+          + '\nO Radar Corona é um aplicativo comunitário desenvolvido por Fábio Costa (TT: @srcossta) e distribuído de forma amadora pelo link: https://bit.ly/RadarCorona'
     }
 
     async function fetchCities(value){
