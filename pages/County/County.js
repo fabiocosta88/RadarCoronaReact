@@ -161,7 +161,7 @@ export default function County() {
           + '\u2022 ' + 'A taxa de letalidade é de ' + getPorcentageMessage(data.deaths, data.cases) + escape('%') +  ';\n'
           + '\u2022 ' + 'A população total é de: ' + data.habitants + ' e ' + getPorcentageInfectedMessage(data.habitants, data.cases) + escape('%') +  ' estão infectados!\n'
           + '\nFonte: Secretaria de Saúde do Estado. \n'
-          + '\nO Radar Corona é um aplicativo comunitário desenvolvido por Fábio Costa (TT: @srcossta) e distribuído de forma amadora pelo link: https://tinyurl.com/RadarCorona'
+          + '\nO Radar Corona é um aplicativo desenvolvido para monitorar os casos de Covid-19 pelo Brasil, ele pode ser obtido pelo link: https://tinyurl.com/RadarCorona ou na Google Play Store.'
     }
 
     async function fetchCities(value){
@@ -299,7 +299,7 @@ export default function County() {
                                 />
                             </ViewCustom>
                             <Message>
-                                Os dados só apareceram nos campos quando a Secretária de Sáude do Estado de São Paulo indexar os números da cidade no boletim oficial.
+                                Os dados são extraídos dos boletins fornecidos pelas Secretarias de Saúde de cada estado, a diferença entre os dados municipais e estaduais são inteiramente culpa dos respectivos orgãos. 
                             </Message>
                         </ViewCounty>
                     )}
