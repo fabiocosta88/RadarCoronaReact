@@ -5,7 +5,7 @@ import { Label, Casos, CasosNumber, NewNumber, DataContainer, Color, LabelRow } 
 
 export default function Card({ title, info, infoplus, color }) {
     const [isShinning, setIsShinning] = useState(false);
-    setTimeout(() => {setIsShinning(true)}, 5000)
+    setTimeout(() => {setIsShinning(true)}, 5000);
     return (
         <Label>
             <Color color={color} />

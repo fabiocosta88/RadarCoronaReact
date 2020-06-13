@@ -30,7 +30,8 @@ import {
     CityField,
     ViewCity,
     ViewZap,
-    ViewCustom1
+    ViewCustom1,
+    InfoTitle
 } from './CountyStyles';
 import Card from './Card/Card';
 import CardBig from './Card/CardBig'
@@ -51,6 +52,15 @@ function getPorcentage(deaths, cases){
     const math = (deaths / cases) * 100;
     const porcentage = parseFloat(math.toFixed(1)) + '%';
     return porcentage;
+}
+
+function casesper100k(habitants, cases){
+    if (habitants == 0 && cases == 0){
+        return '0';
+    }
+    const math = (cases / habitants) * 1000;
+    const result = parseFloat(math.toFixed(1));
+    return result;
 }
 
 function getPorcentageInfected(habitants, cases){
@@ -191,7 +201,7 @@ export default function County() {
         <>
             <ContainerView>
                 <TitleContainer>
-                    <Title>Municípios</Title>
+                    <Title>Estados & Municípios</Title>
                 </TitleContainer>
                 <CardContainer>
                     <Dropdown
@@ -255,17 +265,17 @@ export default function County() {
                             </TouchableOpacity>
                             </ViewCustom1>
                             <ViewCustom>
-                                <Card
-                                    title='Casos'
-                                    info={<NumberFormat
-                                        value={data.cases}
-                                        displayType={'text'}
-                                        thousandSeparator={true}
-                                        renderText={(value) => <Text>{value}</Text>}
-                                    />}
-                                    color={colors.primary}
-                                />
-                                <Card
+                                <CardBig
+                                        title='Casos'
+                                        info={<NumberFormat
+                                            value={data.cases}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            renderText={(value) => <Text>{value}</Text>}
+                                        />}
+                                        color={colors.primary}
+                                    />
+                                <CardBig
                                     title='Óbitos'
                                     info={<NumberFormat
                                         value={data.deaths}
@@ -275,27 +285,40 @@ export default function County() {
                                     />}
                                     color={colors.redPink}
                                 />
-                                <Card
+                            </ViewCustom>
+                            <ViewCustom>
+                                <CardBig
                                     title='Letalidade'
                                     info={getPorcentage(data.deaths, data.cases)}
                                     color={colors.purple}
                                 />
+                                <CardBig
+                                    title='População'
+                                    info={<NumberFormat
+                                        value={data.habitants}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        renderText={(value) => <Text>{value}</Text>}
+                                    />}
+                                    color={colors.green}
+                                />
                             </ViewCustom>
+                            <InfoTitle>Outros dados</InfoTitle>
                             <ViewCustom>
                                 <CardBig
-                                        title='População'
-                                        info={<NumberFormat
-                                            value={data.habitants}
-                                            displayType={'text'}
-                                            thousandSeparator={true}
-                                            renderText={(value) => <Text>{value}</Text>}
-                                        />}
-                                        color={colors.green}
-                                    />
-                                <CardBig
-                                    title='Infectados'
+                                    title='% de infectados'
                                     info={getPorcentageInfected(data.habitants, data.cases)}
-                                    color={colors.redPink}
+                                    color={colors.primary}
+                                />
+                                <CardBig
+                                    title='Casos por 1,000 hab.'
+                                    info={<NumberFormat
+                                        value={casesper100k(data.habitants, data.cases)}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        renderText={(value) => <Text>{value}</Text>}
+                                    />}
+                                    color={colors.primary}
                                 />
                             </ViewCustom>
                             <Message>

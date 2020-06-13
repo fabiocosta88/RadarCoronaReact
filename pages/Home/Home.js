@@ -281,8 +281,9 @@ export default function Home() {
                                 <NumberFormat
                                     value={data.testsPerOneMillion}
                                     displayType={'text'}
+                                    decimalScale={0}
                                     thousandSeparator={true}
-                                    renderText={(value) => <Text>{value}/mi</Text>}
+                                    renderText={(value) => <Text>{value} /mi</Text>}
                                 />
                             }
                             color={colors.green}

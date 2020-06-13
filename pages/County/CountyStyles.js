@@ -59,6 +59,14 @@ export const Message = styled.Text`
     font-size: ${normalizeFontSize(16)};
 `;
 
+export const InfoTitle = styled.Text`
+    color: ${colors.black};
+    top: -1%;
+    text-align: center;
+    font-size: ${normalizeFontSize(24)};
+    font-weight: bold;
+`;
+
 export const CityTitle = styled.Text`
     color: ${colors.black};
     top: -1%;
