@@ -37,7 +37,7 @@ export const CasosNumber = styled.Text`
 export const NewNumber = styled.Text`
     color: ${({ color }) => handleColorType(color)};
     font-weight: bold;
-    font-size: ${normalizeFontSize(21)};
+    font-size: ${normalizeFontSize(22)};
     padding-left: 2%;
     align-self: center;
 `;
